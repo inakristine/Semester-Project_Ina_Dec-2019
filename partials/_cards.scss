@@ -1,0 +1,46 @@
+.cardContainer{
+    margin: 13% 10%;
+}
+
+.card{
+    float: left;
+    height: 270px;
+    margin: 1%;
+    padding: 12px;
+    width: 18%;
+    border-style: solid;
+    border-width: 2px;
+    border-image: url(img/goldGradient.svg) 0.5% round;
+    background-color: black;
+    -webkit-box-shadow: 3px 6px 18px 8px rgba(0,0,0,0.54);
+    -moz-box-shadow: 3px 6px 18px 8px rgba(0,0,0,0.54);
+    box-shadow: 3px 6px 18px 8px rgba(0,0,0,0.54);
+    text-align: center;
+    &__image{
+        margin: 11% 0;
+
+        
+        width: 120px;
+
+    }
+    &__btn{
+        &--left{
+            width: 45%;
+            margin-top: 12px;
+            float: left;
+            background-image: url(img/goldGradient.svg);
+            border: none;
+            height: 30px;
+
+        }
+        &--right{
+            width: 45%;
+            margin-top: 12px;
+            float: right;
+            background-image: url(img/goldGradient.svg);
+            border: none;
+            height: 30px;
+            
+        }
+    }
+}

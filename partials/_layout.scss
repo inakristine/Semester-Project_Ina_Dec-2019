@@ -1,0 +1,14 @@
+@import url("https://use.typekit.net/mqw0wrd.css");
+
+.background{
+    &--normal{
+        background-image: url('img/indexBackground.jpg');
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+    &--game{
+        background-image: url('img/gameBackground.jpg');
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+}       
