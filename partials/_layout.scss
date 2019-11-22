@@ -11,4 +11,37 @@
         background-size: 100%;
         background-repeat: no-repeat;
     }
-}       
+}
+
+.allertbox{
+    position: absolute;
+    top: 220px;
+    left: 30%;
+    width: 40%;
+    height: 250px;
+    padding: 30px;
+    background-color: black;
+    border-style: solid;
+    border-width: 2px;
+    border-image: url(img/goldGradient.svg) 0.5% round;
+    -webkit-box-shadow: 18px 18px 18px 8000px rgba(0,0,0,0.6);
+    -moz-box-shadow: 18px 18px 18px 8000px rgba(0,0,0,0.6);
+    box-shadow: 18px 18px 18px 8000px rgba(0,0,0,0.6);
+    text-align: center;
+    &__text{
+        font-family: fairy-tale-jf, sans-serif;
+        letter-spacing: 1px;
+        color: #b09238;
+        font-size: 40px;
+    }
+    &__closer{
+        position: absolute;
+        bottom: 30px;
+        left: 
+        42%;
+        width: 15%;
+        background-image: url(img/goldGradient.svg);
+        border: none;
+        height: 30px;
+    }
+}
