@@ -455,6 +455,22 @@ function closeBox(){
 }
 
 
+
+function openGame(){
+    if(localStorage.length >= 2){
+        window.open("game.html")
+    }else{
+            toFewPlayers();
+    }
+    
+
+}
+
+function toFewPlayers() {
+    document.querySelector('.background--normal').innerHTML += `
+    <div class="[ allertbox ]"><p3 class="[ allertbox__text ]">You need to choose two charachters to play this game.</p3><button  class="[ allertbox__closer ]" onclick="closeBox()">Close (Click twice)</button></div>
+    
+`}
 // Store data
 // var someData = 'The data that I want to store for later.';
 // localStorage.setItem('myDataKey', someData);
@@ -464,3 +480,7 @@ function closeBox(){
 
 // Remove data
 // localStorage.removeItem('myDatakey');
+
+
+
+//window.open("https://www.w3schools.com");

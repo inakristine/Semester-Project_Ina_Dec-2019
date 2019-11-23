@@ -1,10 +1,11 @@
 .cardContainer{
-    margin: 13% 10%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .card{
     float: left;
-    height: 270px;
+    height: 250px;
     margin: 1%;
     padding: 12px;
     width: 18%;
@@ -17,7 +18,8 @@
     box-shadow: 3px 6px 18px 8px rgba(0,0,0,0.54);
     text-align: center;
     &__image{
-        margin: 11% 0;
+        margin-top: 6%;
+        margin-bottom: 4%;
 
         
         width: 120px;
@@ -43,4 +45,22 @@
             
         }
     }
+}
+
+.toGameButton{
+    width: 78.6%;
+    margin-left: 10.7%;
+    margin-right: 10.7%;
+    margin-top: 12px;
+    float: left;
+    background-image: url(img/goldGradient.svg);
+    background-size: cover;
+    border: solid 2px black;
+    height: 60px;
+    -webkit-box-shadow: 3px 6px 18px 8px rgba(0,0,0,0.54);
+    -moz-box-shadow: 3px 6px 18px 8px rgba(0,0,0,0.54);
+    box-shadow: 3px 6px 18px 8px rgba(0,0,0,0.54);
+    font-family: fairy-tale-jf, sans-serif;
+    font-size: 2.1vw;
+    text-align: center;
 }

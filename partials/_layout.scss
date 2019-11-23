@@ -24,9 +24,10 @@
     border-style: solid;
     border-width: 2px;
     border-image: url(img/goldGradient.svg) 0.5% round;
-    -webkit-box-shadow: 18px 18px 18px 8000px rgba(0,0,0,0.6);
-    -moz-box-shadow: 18px 18px 18px 8000px rgba(0,0,0,0.6);
-    box-shadow: 18px 18px 18px 8000px rgba(0,0,0,0.6);
+
+    -webkit-box-shadow: 1px 2px 18px 8000px rgba(0,0,0,0.6);
+    -moz-box-shadow: 1px 2px 18px 8000px rgba(0,0,0,0.6);
+    box-shadow: 18px 2px 18px 8000px rgba(0,0,0,0.6);
     text-align: center;
     &__text{
         font-family: fairy-tale-jf, sans-serif;
@@ -44,4 +45,17 @@
         border: none;
         height: 30px;
     }
+}
+
+.titlebox{
+
+    margin-top: 11.3%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    background-color: rgba(255,255,255,0.4);
+
+    -webkit-box-shadow: 0 0 10px 10px rgba(255,255,255,0.4);
+    -moz-box-shadow: 0 0 10px 10px rgba(255,255,255,0.4);
+    box-shadow: 0 0 10px 10px rgba(255,255,255,0.4);
 }
