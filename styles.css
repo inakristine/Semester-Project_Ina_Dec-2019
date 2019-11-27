@@ -16,7 +16,7 @@ h1 {
   font-family: fairy-tale-jf, sans-serif;
   letter-spacing: 1px;
   color: #33180e;
-  font-size: 1.9vw;
+  font-size: 2.1vw;
 }
 
 a {
@@ -138,11 +138,106 @@ a {
   text-align: center;
 }
 
-.boardgame__brick {
-  border: 2px solid blue;
+.rollDiceBtn__1 {
+  width: 90%;
+  margin: 5%;
+  background-image: url(img/goldGradient.svg);
+  border: none;
+  height: 30px;
+}
+.rollDiceBtn__2 {
+  width: 90%;
+  margin: 5%;
+  background-image: url(img/goldGradient.svg);
+  border: none;
+  height: 30px;
+}
+
+.dice__1 {
+  width: 70%;
+  margin: 15%;
+  margin-top: 0;
+}
+.dice__2 {
+  width: 70%;
+  margin: 15%;
+  margin-top: 0;
+}
+
+.movePawnBtn__1 {
+  width: 90%;
+  margin: 5%;
+  background-image: url(img/goldGradient.svg);
+  border: none;
+  height: 30px;
+}
+.movePawnBtn__2 {
+  width: 90%;
+  margin: 5%;
+  background-image: url(img/goldGradient.svg);
+  border: none;
+  height: 30px;
+}
+
+.pawn__one {
+  position: absolute;
+  width: 4vw;
+  height: 4vw;
+  top: 0.5vw;
+  left: 0.5vw;
+  z-index: 100;
+}
+.pawn__two {
+  position: absolute;
+  width: 4vw;
+  height: 4vw;
+  top: 0.5vw;
+  left: 5vw;
+  z-index: 100;
+}
+
+.playerOne {
+  float: left;
+  height: 37vw;
+  margin-top: 13vw;
+  margin-left: 4vw;
+  padding: 12px;
+  width: 14vw;
+  border-style: solid;
+  border-width: 2px;
+  border-image: url(img/goldGradient.svg) 0.5% round;
+  background-color: black;
+  -webkit-box-shadow: 3px 6px 18px 8px rgba(0, 0, 0, 0.54);
+  -moz-box-shadow: 3px 6px 18px 8px rgba(0, 0, 0, 0.54);
+  box-shadow: 3px 6px 18px 8px rgba(0, 0, 0, 0.54);
   text-align: center;
-  padding: 2vw;
+}
+
+.playertwo {
+  float: right;
+  height: 37vw;
+  margin-top: 13vw;
+  margin-right: 4vw;
+  padding: 12px;
+  width: 14vw;
+  border-style: solid;
+  border-width: 2px;
+  border-image: url(img/goldGradient.svg) 0.5% round;
+  background-color: black;
+  -webkit-box-shadow: 3px 6px 18px 8px rgba(0, 0, 0, 0.54);
+  -moz-box-shadow: 3px 6px 18px 8px rgba(0, 0, 0, 0.54);
+  box-shadow: 3px 6px 18px 8px rgba(0, 0, 0, 0.54);
+  text-align: center;
+}
+
+.boardgame__brick {
+  border: none;
+  text-align: center;
+  padding: 1%;
   color: white;
+  font-family: fairy-tale-jf, sans-serif;
+  font-size: 2em;
+  letter-spacing: 1px;
 }
 
 #brick01 {

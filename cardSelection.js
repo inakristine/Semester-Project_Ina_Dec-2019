@@ -15,8 +15,8 @@ function peron(id, i) {
             <div class="[ card ]" id="card${i}">
                 <h2 class="[ card__title ]">${jsonResult.name}</h2>
                 <img src="img/${jsonResult.name}.png" alt="" class="[ card__image ]">
-                <button onclick="readMore('${jsonResult.name}', '${jsonResult.gender}', '${jsonResult.culture}', '${jsonResult.aliases} ');" class="[ card__btn--left ]">Read more</button>
-                <button onclick="select(${i}, '${jsonResult.name}')" class="[ card__btn--right ]">Select</button>
+                <button onclick="readMore('${jsonResult.name}', '${jsonResult.gender}', '${jsonResult.culture}');" class="[ card__btn--left ]">Read more</button>
+        <button onclick="select(${i}, '${jsonResult.name}')" class="[ card__btn--right ]">Select</button>
             </div>
         `
         });
@@ -42,7 +42,6 @@ function select(cardNum, cardName) {
         var newButton = document.createElement("button");
 
         correctCard.setAttribute("style", "background-color: #33180e;");
-
         newButton.setAttribute("class", "[ card__btn--right ]");
         newButton.setAttribute("onclick", `deselect(${cardNum})`);
         newButton.innerHTML = "Deselect";
@@ -50,6 +49,8 @@ function select(cardNum, cardName) {
         oldButton.parentElement.replaceChild(newButton, oldButton);
 
         var someData = `${cardName}`;
+
+        
         localStorage.setItem(`myDataKey${cardNum}`, someData);
     } else {
         playerLimitReached();
@@ -73,22 +74,29 @@ function deselect(cardNum) {
     localStorage.removeItem(`myDataKey${cardNum}`);
 }
 
-function readMore(carName, gender, culture, alias){
-    document.querySelector('.background--normal').innerHTML += `
-    <div class="[ allertbox ]"><p3 class="[ allertbox__text ]">${carName} is a ${gender} from the culture of ${culture}. She is aso known by the name: ${alias}.</p3><button  class="[ allertbox__closer ]" onclick="closeBox()">Close (Click twice)</button></div>
-`
-}
 
 
 function playerLimitReached() {
     document.querySelector('.background--normal').innerHTML += `
     <div class="[ allertbox ]"><p3 class="[ allertbox__text ]">You are not able to choose more than two characters for this game.</p3><button  class="[ allertbox__closer ]" onclick="closeBox()">Close (Click twice)</button></div>
+    
+`
+
+}
+
+function readMore(carName, gender, culture){
+    document.querySelector('.background--normal').innerHTML += `
+    <div class="[ allertbox ]"><p3 class="[ allertbox__text ]">${carName} is a ${gender} from the culture of ${culture}.</p3><button  class="[ allertbox__closer ]" onclick="closeBox()">Close (Click twice)</button></div>
 `
 }
+
 function closeBox(){
     var allertBox = document.querySelector('.background--normal');
     allertBox.removeChild(allertBox.lastChild);
+
 }
+
+
 
 function openGame(){
     if(localStorage.length >= 2){
@@ -96,6 +104,8 @@ function openGame(){
     }else{
             toFewPlayers();
     }
+    
+
 }
 
 function toFewPlayers() {
