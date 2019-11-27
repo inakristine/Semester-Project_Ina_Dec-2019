@@ -4,14 +4,17 @@
         margin: 5%;
         background-image: url(img/goldGradient.svg);
         border: none;
-        height: 30px;
+        min-height: 50px;
+        padding: 15px;
     }
     &__2{
         width: 90%;
         margin: 5%;
-        background-image: url(img/goldGradient.svg);
         border: none;
-        height: 30px;
+        min-height: 50px;
+        padding: 15px;
+        color: #b09238;
+        background-color: #33180e;
     }
 }
 
@@ -32,16 +35,20 @@
     &__1{
         width: 90%;
         margin: 5%;
-        background-image: url(img/goldGradient.svg);
         border: none;
-        height: 30px;
+        min-height: 50px;
+        padding: 15px;
+        color: #b09238;
+        background-color: #33180e;
     }
     &__2{
         width: 90%;
         margin: 5%;
-        background-image: url(img/goldGradient.svg);
         border: none;
-        height: 30px;
+        min-height: 50px;
+        padding: 15px;
+        color: #b09238;
+        background-color: #33180e;
     }
 }
 

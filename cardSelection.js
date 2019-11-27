@@ -36,6 +36,8 @@ peron("150", 9);
 
 function select(cardNum, cardName) {
 
+    var someData = `${cardName}`;
+
     if (localStorage.length <= 1) {
         var correctCard = document.querySelector(`#card${cardNum}`);
         var oldButton = correctCard.lastElementChild;
@@ -43,22 +45,26 @@ function select(cardNum, cardName) {
 
         correctCard.setAttribute("style", "background-color: #33180e;");
         newButton.setAttribute("class", "[ card__btn--right ]");
-        newButton.setAttribute("onclick", `deselect(${cardNum})`);
+        newButton.setAttribute("onclick", `deselect(${cardNum}, ${cardName})`);
         newButton.innerHTML = "Deselect";
 
         oldButton.parentElement.replaceChild(newButton, oldButton);
 
-        var someData = `${cardName}`;
-
         
-        localStorage.setItem(`myDataKey${cardNum}`, someData);
+
+        if(localStorage.getItem("playerOne") === null){
+            localStorage.setItem("playerOne", someData);
+        }
+        else{
+            localStorage.setItem("PlayerTwo", someData);
+        }
     } else {
         playerLimitReached();
     }
 }
 
-function deselect(cardNum) {
-
+function deselect(cardNum, cardName) {
+    var someData = `${cardName}`;
     var correctCard = document.querySelector(`#card${cardNum}`);
     var oldButton = correctCard.lastElementChild;
     var newButton = document.createElement("button");
@@ -71,7 +77,13 @@ function deselect(cardNum) {
 
     oldButton.parentElement.replaceChild(newButton, oldButton);
 
-    localStorage.removeItem(`myDataKey${cardNum}`);
+    if(localStorage.getItem("playerOne") == someData){
+        localStorage.removeItem("playerOne");
+    }
+    else{
+        localStorage.removeItem("PlayerTwo");
+    }
+
 }
 
 

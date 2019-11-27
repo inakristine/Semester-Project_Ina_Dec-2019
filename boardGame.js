@@ -1,53 +1,45 @@
+
+var player1id = localStorage.getItem("playerOne");
+
+var player2id = localStorage.getItem("PlayerTwo");
+
+
 window.onload = function () {
     populatePTwo(player2id);
     populatePOne(player1id);
-    setPos1();
-    setPos1();
+    setPos();
+}
+
+function setPos(){
+    localStorage.setItem('Pos1', 0);
+    localStorage.setItem('Pos2', 0);
 }
 
 
-
-
-var player1id = localStorage.getItem(localStorage.key(0));
-
-//Code to remove appostrof on data from localstorege in chrome
-//if(typeof window.chrome == "object") {
-//    player1id = player1id.slice(1,-1);
-//}
-    
-    
-
-var player2id = localStorage.getItem(localStorage.key(1));
-//Code to remove appostrof on data from localstorege in chrome
-//if(typeof window.chrome == "object") {
-//    player2id = player2id.slice(1,-1);
-//}
-    
-
-
-
 function populatePTwo(charName) {
+
+    console.log(charName)
 
     var diceNum = (Math.round(Math.random() * 5)+1);
 
     document.querySelector('.playertwo').innerHTML += `
             <h2 class="[ card__title ]">Player 2<br>${charName}</h2>
             <img src="img/${charName}.png" alt="" class="[ card__image ]">
-            <div class="[ rollDiceBtn__2 ]" onclick="rollDice();">Roll dice</div>
-            <img class="[ dice__2 ]" src="img/dice${diceNum}.gif" alt="game rolling dice">
-            <div class="[ movePawnBtn__2 ]" onclick="movePawn();">Make the move</div>
+            
+            <div class="[ activeElemets__2 ]">
+                <div class="[ rollDiceBtn__2 ]">Wait for your turn</div>
+                <img class="[ dice__2 ]" src="img/dice0.gif" alt="game rolling dice">
+                <div class="[ movePawnBtn__2 ]">You must roll your dice before you can move yor pawn</div>
+            </div>
     `
+    
     pawnOne(`${charName}`, 0);
 }
-
 
 function pawnOne(name, position) {
     tiles[`${position}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__one ]">`
     console.log(diceNum);
 }
-
-//var oldPawnPosition = `${position}`;
-//var newPawnPosition = oldPawnPosition+diceNum;
 
 function populatePOne(charName) {
 
@@ -56,13 +48,45 @@ function populatePOne(charName) {
     document.querySelector('.playerOne').innerHTML += `
     <h2 class="[ card__title ]">Player 1<br>${charName}</h2>
     <img src="img/${charName}.png" alt="" class="[ card__image ]">
-    <div class="[ rollDiceBtn__1 ]" onclick="rollDice();">Roll dice</div>
-    <img class="[ dice__1 ]" src="img/dice${diceNum}.gif" alt="game rolling dice">
-    <div class="[ movePawnBtn__1 ]" onclick="movePawn();">Make the move</div>
+    
+    <div class="[ activeElemets__1 ]">
+        <div class="[ rollDiceBtn__1 ]" onclick="rollDice1();">Wait for your turn</div>
+        <img class="[ dice__1 ]" src="img/dice0.gif" alt="game rolling dice">
+        <div class="[ movePawnBtn__1 ]">You must roll your dice before you can move yor pawn</div>
+    </div>
 `
+
 pawnTwo(`${charName}`, 0);
+
+}
+function rollDice1() {
+    var rollBtn = document.querySelector('.rollDiceBtn__1');
+    var moveBtn = document.querySelector('.movePawnBtn__1');
+    var diceNum = (Math.round(Math.random() * 5)+1);
+    var dice = document.querySelector('.dice__1');
+
+    rollBtn.style.backgroundImage="none";
+    rollBtn.style.backgroundColor="#33180e";
+    rollBtn.style.color="#b09238";
+    rollBtn.onclick="none";
+
+    dice.src=`img/dice${diceNum}.gif`;
+
+    localStorage.setItem("dice1", diceNum);
+
+    moveBtn.style.backgroundImage="url(img/goldGradient.svg)";
+    moveBtn.style.backgroundColor="none";
+    moveBtn.style.color="black";
+    moveBtn.onclick="pawnOne();";
+    moveBtn.innerHTML=("Make the move");
 }
 
+/*        <div class="[ activeElemets__1 ]">
+            <div class="[ rollDiceBtn__1 ]" onclick="rollDice();">Roll dice</div>
+            <img class="[ dice__1 ]" src="img/dice${diceNum}.gif" alt="game rolling dice">
+            <div class="[ movePawnBtn__2 ]" onclick="movePawn();">Roll dice before you cn move pawn</div>
+        </div>
+*/
 
 function pawnTwo(name, position) {
     tiles[`${position}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__two ]">`
@@ -105,8 +129,5 @@ function pawnTwo(name, position) {
     ]
 
    
-
-
-
 
     var diceNum = (Math.round(Math.random() * 5)+1);
