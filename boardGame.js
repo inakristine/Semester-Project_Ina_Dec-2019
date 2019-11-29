@@ -4,9 +4,6 @@ var player1id = localStorage.getItem("playerOne");
 var player2id = localStorage.getItem("PlayerTwo");
 
 
-
-
-
 window.onload = function () {
     populatePTwo(player2id);
     populatePOne(player1id);
@@ -73,9 +70,6 @@ function moveButtonActive2() {
     moveBtn.setAttribute('onclick', "pawnTwoMove();");
 }
 
-
-
-
 function moveButtonPassive1() {
     var moveBtn = document.querySelector(".movePawnBtn__1");
     moveBtn.style.backgroundImage="none";
@@ -84,6 +78,7 @@ function moveButtonPassive1() {
     moveBtn.innerHTML=("Wait for your turn");
     moveBtn.removeAttribute("onclick");
 }
+
 function moveButtonPassive2() {
     var moveBtn = document.querySelector(".movePawnBtn__2");
     moveBtn.style.backgroundImage="none";
@@ -101,6 +96,7 @@ function rollButtonActive1() {
     rollBtn.innerHTML=("Roll the dice");
     rollBtn.setAttribute('onclick', "rollDice1();");
 }
+
 function rollButtonActive2() {
     var rollBtn = document.querySelector(".rollDiceBtn__2");
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -186,29 +182,51 @@ function rollDice2() {
 }
 }
 
-
-
-
 function pawnOneMove() {
 
     rollButtonActive2();
     moveButtonPassive1();
+    var diceNum1=localStorage.getItem('dice1')
+    var oldPos1=localStorage.getItem('Pos1');
+    var newPos1=(+diceNum1)+(+oldPos1);
+    localStorage.setItem('Pos1', newPos1);
+    pawnOne(player1id, newPos1, oldPos1);
+
 
 }
 function pawnTwoMove() {
     
     rollButtonActive1();
     moveButtonPassive2();
+    var diceNum2=localStorage.getItem('dice2')
+    var oldPos2=localStorage.getItem('Pos2');
+    var newPos2=(+diceNum2)+(+oldPos2);
+    localStorage.setItem('Pos2', newPos2);
+    pawnTwo(player2id, newPos2, oldPos2);
+
+}
+
+function pawnTwo(name, nPosition) {
+    tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__two ]">`
 }
 
 
-function pawnTwo(name, position) {
-    tiles[`${position}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__two ]">`
-}
-function pawnOne(name, position) {
-    tiles[`${position}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__one ]">`
-}
 
+
+
+
+function pawnOne(name, nPosition) {
+    
+    tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__one ]">`
+/*
+    if(oPosition===0){
+        tiles[0].innerHTML = `START`
+    }else{
+        tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__one ]">`
+        tiles[`${oPosition}`].innerHTML += `${oPosition}`
+    }
+    */
+}
 /*
 
     localStorage.setItem('Pos1', 0);
