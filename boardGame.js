@@ -30,7 +30,7 @@ function populatePTwo(charName) {
             </div>
     `
     
-    pawnOne(`${charName}`, 0);
+    pawnOneOrigin(`${charName}`, 0);
 }
 
 function populatePOne(charName) {
@@ -48,8 +48,17 @@ function populatePOne(charName) {
     </div>
 `
 
-pawnTwo(`${charName}`, 0);
+pawnTwoOrigin(`${charName}`, 0);
 
+}
+
+function pawnTwoOrigin(name, nPosition) {
+    tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__two ]">`
+}
+
+
+function pawnOneOrigin(name, nPosition, oPosition) {
+    tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__one ]">`
 }
 
 function moveButtonActive1() {
@@ -128,8 +137,8 @@ function rollButtonSix1() {
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
     rollBtn.style.backgroundColor="#33180e";
     rollBtn.style.color="black";
-    rollBtn.innerHTML=("You hit SIX!!<br>Roll again!!");
-    rollBtn.setAttribute('onclick', "rollDice1();");
+    rollBtn.innerHTML=("You hit SIX!!<br>Make your move and get a bonus throw!");
+    rollBtn.setAttribute('onclick', "pawnOneMove();");
 }
 
 function rollButtonSix2() {
@@ -137,8 +146,8 @@ function rollButtonSix2() {
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
     rollBtn.style.backgroundColor="#33180e";
     rollBtn.style.color="black";
-    rollBtn.innerHTML=("You hit SIX!!<br>Roll again!!");
-    rollBtn.setAttribute('onclick', "rollDice2();");
+    rollBtn.innerHTML=("You hit SIX!!<br>Make your move and get a bonus throw!");
+    rollBtn.setAttribute('onclick', "pawnTwoMove();");
 }
 
 function rollDice1() {
@@ -153,10 +162,14 @@ function rollDice1() {
         moveButtonActive1();
 
     }else{
+
+        localStorage.setItem("dice1", 6);
+        moveButtonActive1();
         rollButtonSix1();
     document.querySelector('.diceOne').innerHTML = `
     <img class="[ dice__1 ]" src="img/dice6.gif" alt="game rolling dice">
-`
+    
+`   
     moveButtonPassive1();
 
 }
@@ -174,6 +187,8 @@ function rollDice2() {
         moveButtonActive2();
 
     }else{
+        localStorage.setItem("dice2", 6);
+        moveButtonActive2();
     rollButtonSix2();
     document.querySelector('.diceTwo').innerHTML = `
     <img class="[ dice__2 ]" src="img/dice6.gif" alt="game rolling dice">
@@ -184,54 +199,78 @@ function rollDice2() {
 
 function pawnOneMove() {
 
-    rollButtonActive2();
-    moveButtonPassive1();
     var diceNum1=localStorage.getItem('dice1')
     var oldPos1=localStorage.getItem('Pos1');
     var newPos1=(+diceNum1)+(+oldPos1);
-    localStorage.setItem('Pos1', newPos1);
-    pawnOne(player1id, newPos1, oldPos1);
-
+    if(diceNum1==6){
+        rollButtonActive1();
+        moveButtonPassive2();
+        localStorage.setItem('Pos1', newPos1);
+        pawnOne(player1id, newPos1, oldPos1, player2id);
+    }else{
+        rollButtonActive2();
+        moveButtonPassive1();
+        localStorage.setItem('Pos1', newPos1);
+        pawnOne(player1id, newPos1, oldPos1, player2id);
+    }
 
 }
 function pawnTwoMove() {
-    
-    rollButtonActive1();
-    moveButtonPassive2();
     var diceNum2=localStorage.getItem('dice2')
     var oldPos2=localStorage.getItem('Pos2');
     var newPos2=(+diceNum2)+(+oldPos2);
-    localStorage.setItem('Pos2', newPos2);
-    pawnTwo(player2id, newPos2, oldPos2);
-
-}
-
-function pawnTwo(name, nPosition) {
-    tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__two ]">`
-}
-
-
-
-
-
-
-function pawnOne(name, nPosition) {
-    
-    tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__one ]">`
-/*
-    if(oPosition===0){
-        tiles[0].innerHTML = `START`
+    if(diceNum2==6){
+        rollButtonActive2();
+        moveButtonPassive1();
+        localStorage.setItem('Pos2', newPos2);
+        pawnTwo(player2id, newPos2, oldPos2, player1id);
     }else{
-        tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__one ]">`
-        tiles[`${oPosition}`].innerHTML += `${oPosition}`
+        rollButtonActive1();
+        moveButtonPassive2();
+        localStorage.setItem('Pos2', newPos2);
+        pawnTwo(player2id, newPos2, oldPos2, player1id);
     }
-    */
 }
-/*
 
-    localStorage.setItem('Pos1', 0);
-    localStorage.setItem('Pos2', 0);
-*/
+
+
+function pawnTwo(name, nPosition, oPosition, othername) {
+
+    if(oPosition==0){
+        tiles[`${oPosition}`].innerHTML = (`START`);
+        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+    }else if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
+        tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+    }else{
+        tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${othername}.png" alt="" class="[ pawn__one ]">`);
+        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+    }
+    
+    
+}
+
+
+
+
+
+function pawnOne(name, nPosition, oPosition, otherName) {
+
+ 
+    if(oPosition==0){
+        tiles[`${oPosition}`].innerHTML = (`START<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
+        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+    }else if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
+        tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+    }else{
+        tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
+        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+    }
+    
+    
+}
+
 
     var tiles = [
         document.getElementById("brick01"),
