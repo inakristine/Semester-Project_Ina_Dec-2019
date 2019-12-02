@@ -1,8 +1,11 @@
 
+//getting the right players from locale storage
+
 var player1id = localStorage.getItem("playerOne");
 
 var player2id = localStorage.getItem("PlayerTwo");
 
+//Run the functions to set up the players on the page, when the page loads.
 
 window.onload = function () {
     populatePTwo(player2id);
@@ -10,10 +13,13 @@ window.onload = function () {
     setPos();
 }
 
+//Set the player entrence position in local storage, before gane starts.
 function setPos(){
     localStorage.setItem('Pos1', 0);
     localStorage.setItem('Pos2', 0);
 }
+
+//Make the HTML content of player two, with name and image for the correct character, and call the function that places the right pawn/token on the board.
 
 function populatePTwo(charName) {
 
@@ -33,6 +39,7 @@ function populatePTwo(charName) {
     pawnOneOrigin(`${charName}`, 0);
 }
 
+//Make the HTML content of player one, with name and image for the correct character, and call the function that places the right pawn/token on the board.
 function populatePOne(charName) {
 
     document.querySelector('.playerOne').innerHTML += `
@@ -51,16 +58,18 @@ function populatePOne(charName) {
 pawnTwoOrigin(`${charName}`, 0);
 
 }
-
+//placing pawn two at the staring position on the board
 function pawnTwoOrigin(name, nPosition) {
     tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__two ]">`
 }
 
-
+//placing pawn one at the staring position on the board
 function pawnOneOrigin(name, nPosition, oPosition) {
     tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__one ]">`
 }
 
+
+//Activating  the "move" button for player one, and setting an onclick to call the function that moves pawn one on the board.
 function moveButtonActive1() {
     var moveBtn = document.querySelector(".movePawnBtn__1");
     moveBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -70,6 +79,7 @@ function moveButtonActive1() {
     moveBtn.setAttribute('onclick', "pawnOneMove();");
 }
 
+//Activating  the "move" button for player two, and setting an onclick to call the function that moves pawn two on the board.
 function moveButtonActive2() {
     var moveBtn = document.querySelector(".movePawnBtn__2");
     moveBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -79,6 +89,7 @@ function moveButtonActive2() {
     moveBtn.setAttribute('onclick', "pawnTwoMove();");
 }
 
+//Deactivating  the move button for player one, removing onclick function
 function moveButtonPassive1() {
     var moveBtn = document.querySelector(".movePawnBtn__1");
     moveBtn.style.backgroundImage="none";
@@ -87,7 +98,7 @@ function moveButtonPassive1() {
     moveBtn.innerHTML=("Wait for your turn");
     moveBtn.removeAttribute("onclick");
 }
-
+//Deactivating  the move button for player two, removing onclick function
 function moveButtonPassive2() {
     var moveBtn = document.querySelector(".movePawnBtn__2");
     moveBtn.style.backgroundImage="none";
@@ -97,6 +108,7 @@ function moveButtonPassive2() {
     moveBtn.removeAttribute("onclick");
 }
 
+//Activates roll button for player one, setting onclick function to the function that rolls the dice one.
 function rollButtonActive1() {
     var rollBtn = document.querySelector(".rollDiceBtn__1");
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -105,7 +117,7 @@ function rollButtonActive1() {
     rollBtn.innerHTML=("Roll the dice");
     rollBtn.setAttribute('onclick', "rollDice1();");
 }
-
+//Activates roll button for player two, setting onclick function to the function that rolls the dice two.
 function rollButtonActive2() {
     var rollBtn = document.querySelector(".rollDiceBtn__2");
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -114,7 +126,7 @@ function rollButtonActive2() {
     rollBtn.innerHTML=("Roll the dice");
     rollBtn.setAttribute('onclick', "rollDice2();");
 }
-
+//Deactivates roll button one, by removing onclick.
 function rollButtonPassive1() {
     var rollBtn = document.querySelector(".rollDiceBtn__1");
     rollBtn.style.backgroundImage="none";
@@ -123,6 +135,7 @@ function rollButtonPassive1() {
     rollBtn.innerHTML=("Wait for your turn");
     rollBtn.removeAttribute("onclick");
 }
+//Deactivates roll button two, by removing onclick.
 function rollButtonPassive2() {
     var rollBtn = document.querySelector(".rollDiceBtn__2");
     rollBtn.style.backgroundImage="none";
@@ -131,7 +144,7 @@ function rollButtonPassive2() {
     rollBtn.innerHTML=("Wait for your turn");
     rollBtn.removeAttribute("onclick");
 }
-
+//Activates the roll-button one with an alternative text.
 function rollButtonSix1() {
     var rollBtn = document.querySelector('.rollDiceBtn__1');
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -140,7 +153,7 @@ function rollButtonSix1() {
     rollBtn.innerHTML=("You hit SIX!!<br>Make your move and get a bonus throw!");
     rollBtn.setAttribute('onclick', "pawnOneMove();");
 }
-
+//Activates the roll-button two with onclick function and an alternative text.
 function rollButtonSix2() {
     var rollBtn = document.querySelector('.rollDiceBtn__2');
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -150,6 +163,8 @@ function rollButtonSix2() {
     rollBtn.setAttribute('onclick', "pawnTwoMove();");
 }
 
+
+//This function generates the dice one number, places the right dice image and either actvates the move button one if the number is not six, or call function "rollButtonSix1" if the dice number is six.
 function rollDice1() {
     var diceNum = (Math.round(Math.random() * 5)+1);
 
@@ -157,24 +172,22 @@ function rollDice1() {
         rollButtonPassive1();
         document.querySelector('.diceOne').innerHTML = `
         <img class="[ dice__1 ]" src="img/dice${diceNum}.gif" alt="game rolling dice">
-    `
+        `
         localStorage.setItem("dice1", diceNum);
         moveButtonActive1();
 
     }else{
 
         localStorage.setItem("dice1", 6);
-        moveButtonActive1();
         rollButtonSix1();
     document.querySelector('.diceOne').innerHTML = `
     <img class="[ dice__1 ]" src="img/dice6.gif" alt="game rolling dice">
-    
-`   
-    moveButtonPassive1();
+    `
 
 }
 }
 
+//This function generates the dice two number, places the right dice image and either actvates the move button two if the number is not six, or call function "rollButtonSix2" if the dice number is six.
 function rollDice2() {
     var diceNum = (Math.round(Math.random() * 5)+1);
 
@@ -195,7 +208,11 @@ function rollDice2() {
 `
     moveButtonPassive2();
 }
+
 }
+
+//This moves the pawnOne by calling the pawnOne function. It also sets the new position in local storage by getting its old position (starting at 0) from local storage and adding the dicenumber to it.
+//Whenever the dice shows six, this fuction  moves the pawn, and reactivates the rollButtonAvtive1 function, to let player one roll again. When player one hits any other number, it passes the turn to player one by activating rollButtonAvtive2.
 
 function pawnOneMove() {
 
@@ -213,8 +230,14 @@ function pawnOneMove() {
         localStorage.setItem('Pos1', newPos1);
         pawnOne(player1id, newPos1, oldPos1, player2id);
     }
+    traps(player1id, newPos1);
 
 }
+
+//This moves the pawnTwo by calling the pawnTwo function. It also sets the new position in local storage by getting its old position (starting at 0) from local storage and adding the dicenumber to it.
+//Whenever the dice shows six, this fuction  moves the pawn, and reactivates the rollButtonAvtive2 function, to let player two roll again. When player two hits any other number, it passes the turn to player one by activating rollButtonAvtive1.
+
+
 function pawnTwoMove() {
     var diceNum2=localStorage.getItem('dice2')
     var oldPos2=localStorage.getItem('Pos2');
@@ -233,18 +256,104 @@ function pawnTwoMove() {
 }
 
 
-
+//This function moves pawn two by deliting its image from the former tile-position and placing its image in its new tile-position, and making sure the tile-number and pawn one, if present, is replaced when the olt psition-tile content is removed. If the tile-number is 0, the number is replaced with the text "START".
 function pawnTwo(name, nPosition, oPosition, othername) {
 
     if(oPosition==0){
         tiles[`${oPosition}`].innerHTML = (`START`);
         tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
-    }else if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
-        tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
-        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
     }else{
-        tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${othername}.png" alt="" class="[ pawn__one ]">`);
-        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+        
+        
+            
+        switch (nPosition) {
+            case 8:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[16].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 16);
+                alert("You found a ladder and climbed to brick 16")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
+                tiles[16].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 16);
+                alert("You found a ladder and climbed to brick 16")
+            }
+            break;
+            case 11:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[24].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 24);
+                alert("You found a ladder and climbed to brick 24")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
+                tiles[24].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 24);
+                alert("You found a ladder and climbed to brick 24")
+            }
+            break;
+            case 13:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[4].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 4);
+                alert("You tripped in a rope and fell down to brick 4")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
+                tiles[4].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 4);
+                alert("You tripped in a rope and fell down to brick 4")
+            }
+            break;
+            case 21:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[22].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 22);
+                alert("You found a ladder and climbed to brick 22")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
+                tiles[22].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 22);
+                alert("You found a ladder and climbed to brick 22")
+            }
+            break;
+            case 25:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[1].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 1);
+                alert("You tripped in a rope and fell down to brick 1")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
+                tiles[1].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 1);
+                alert("You tripped in a rope and fell down to brick 1")
+            }
+            break;
+            case 30:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[6].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 6);
+                alert("You tripped in a rope and fell down to brick 6")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
+                tiles[6].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                localStorage.setItem('Pos2', 6);
+                alert("You tripped in a rope and fell down to brick 6")
+            }
+            break;
+            default:
+                    if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
+                        tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                    }else{
+                        tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
+                        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
+                    }
+        }
     }
     
     
@@ -253,23 +362,106 @@ function pawnTwo(name, nPosition, oPosition, othername) {
 
 
 
-
+//This function moves pawn one by deliting its image from the former tile-position and placing its image in its new tile-position, and making sure the tile-number and pawn two, if present, is replaced when the olt psition-tile content is removed. If the tile-number is 0, the number is replaced with the text "START".
 function pawnOne(name, nPosition, oPosition, otherName) {
 
  
     if(oPosition==0){
         tiles[`${oPosition}`].innerHTML = (`START<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
         tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
-    }else if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
-        tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
-        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
-    }else{
-        tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
-        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+        }else{
+            
+        switch (nPosition) {
+            case 8:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[16].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 16);
+                alert("You found a ladder and climbed to brick 16")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
+                tiles[16].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 16);
+                alert("You found a ladder and climbed to brick 16")
+            }
+            break;
+            case 11:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[24].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 24);
+                alert("You found a ladder and climbed to brick 24")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
+                tiles[24].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 24);
+                alert("You found a ladder and climbed to brick 24")
+            }
+            break;
+            case 13:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[4].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 4);
+                alert("You tripped in a rope and fell down to brick 4")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
+                tiles[4].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 4);
+                alert("You tripped in a rope and fell down to brick 4")
+            }
+            break;
+            case 21:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[22].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 22);
+                alert("You found a ladder and climbed to brick 22")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
+                tiles[22].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 22);
+                alert("You found a ladder and climbed to brick 22")
+            }
+            break;
+            case 25:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[1].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 1);
+                alert("You tripped in a rope and fell down to brick 1")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
+                tiles[1].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 1);
+                alert("You tripped in a rope and fell down to brick 1")
+            }
+            break;
+            case 30:
+            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                tiles[6].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 6);
+                alert("You tripped in a rope and fell down to brick 6")
+            }else{
+                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
+                tiles[6].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                localStorage.setItem('Pos1', 6);
+                alert("You tripped in a rope and fell down to brick 6")
+            }
+            break;
+            default:
+                    if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
+                        tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
+                        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                    }else{
+                        tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
+                        tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
+                    }
+        }
     }
-    
-    
 }
+
 
 
     var tiles = [
