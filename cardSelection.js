@@ -90,22 +90,20 @@ function deselect(cardNum, cardName) {
 
 function playerLimitReached() {
     document.querySelector('.background--normal').innerHTML += `
-    <div class="[ allertbox ]"><p3 class="[ allertbox__text ]">You are not able to choose more than two characters for this game.</p3><button  class="[ allertbox__closer ]" onclick="closeBox()">Close (Click twice)</button></div>
-    
-`
+    <div class="[ allertbox ]"><p3 class="[ allertbox__text ]">You are not able to choose more than two characters for this game.</p3><button  class="[ allertbox__closer ]" onclick="closeBox()">Close</button></div>
+    `
 
 }
 
 function readMore(carName, gender, culture){
     document.querySelector('.background--normal').innerHTML += `
-    <div class="[ allertbox ]"><p3 class="[ allertbox__text ]">${carName} is a ${gender} from the culture of ${culture}.</p3><button  class="[ allertbox__closer ]" onclick="closeBox()">Close (Click twice)</button></div>
+    <div class="[ allertbox ]"><p3 class="[ allertbox__text ]">${carName} is a ${gender} from the culture of ${culture}.</p3><button  class="[ allertbox__closer ]" onclick="closeBox()">Close</button></div>
 `
 }
 
 function closeBox(){
     var allertBox = document.querySelector('.background--normal');
-    allertBox.removeChild(allertBox.lastChild);
-
+    allertBox.lastElementChild.setAttribute("hidden", true);
 }
 
 
@@ -122,7 +120,7 @@ function openGame(){
 
 function toFewPlayers() {
     document.querySelector('.background--normal').innerHTML += `
-    <div class="[ allertbox ]"><p3 class="[ allertbox__text ]">You need to choose two charachters to play this game.</p3><button  class="[ allertbox__closer ]" onclick="closeBox()">Close (Click twice)</button></div>
+    <div class="[ allertbox ]"><p3 class="[ allertbox__text ]">You need to choose two charachters to play this game.</p3><button  class="[ allertbox__closer ]" onclick="closeBox()">Close</button></div>
     
 `}
 // Store data
