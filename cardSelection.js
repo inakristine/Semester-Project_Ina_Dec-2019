@@ -20,34 +20,39 @@ function person(id) {
 
 
 
-function select(charName, charNum) {
+function select(cahrImgName, charName, charNum) {
 
     var someData = `${charName}`;
+    var someDataImg = `${cahrImgName}`;
     var correctCard = document.getElementById(`${charNum}`)
 
-    if (localStorage.length <= 1) {
+    if (localStorage.length <= 3) {
         var oldButton = correctCard.lastElementChild;
         var newButton = document.createElement("button");
 
         correctCard.setAttribute("style", "background-color: #33180e;");
         newButton.setAttribute("class", "[ card__btn--right ]");
-        newButton.setAttribute("onclick", `deselect("${charName}", ${charNum})`);
+        newButton.setAttribute("onclick", `deselect("${cahrImgName}", "${charName}", ${charNum})`);
         newButton.innerHTML = "Deselect";
 
         oldButton.parentElement.replaceChild(newButton, oldButton);
 
         if(localStorage.getItem("playerOne") === null){
             localStorage.setItem("playerOne", someData);
+            localStorage.setItem("playerOneImg", someDataImg);
         }
         else{
             localStorage.setItem("PlayerTwo", someData);
+            localStorage.setItem("playerTwoImg", someDataImg);
         }
     } else {
         playerLimitReached();
     }
 }
 
-function deselect(charName, charNum) {
+function deselect(cahrImgName, charName, charNum) {
+
+    var someDataImg = `${cahrImgName}`;
     var someData = `${charName}`;
     var correctCard = document.getElementById(`${charNum}`)
     var oldButton = correctCard.lastElementChild;
@@ -57,15 +62,17 @@ function deselect(charName, charNum) {
     correctCard.setAttribute("style", "background-color: black;");
 
     newButton.setAttribute("class", "[ card__btn--right ]");
-    newButton.setAttribute("onclick", `select("${charName}", ${charNum})`);
+    newButton.setAttribute("onclick", `select("${cahrImgName}", "${charName}", ${charNum})`);
     newButton.innerHTML = "Select";
 
     oldButton.parentElement.replaceChild(newButton, oldButton);
 
     if(localStorage.getItem("playerOne") == someData){
         localStorage.removeItem("playerOne");
+        localStorage.removeItem("playerOneImg");
     }
     else{
+        localStorage.removeItem("playerTwoImg");
         localStorage.removeItem("PlayerTwo");
     }
 
@@ -92,7 +99,7 @@ function closeBox(){
 
 
 function openGame(){
-    if(localStorage.length >= 2){
+    if(localStorage.length >= 4){
         window.open("game.html")
     }else{
             toFewPlayers();

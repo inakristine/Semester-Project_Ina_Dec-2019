@@ -2,14 +2,16 @@
 //getting the right players from locale storage
 
 var player1id = localStorage.getItem("playerOne");
+var player1img = localStorage.getItem("playerOneImg");
 
 var player2id = localStorage.getItem("PlayerTwo");
+var player2img = localStorage.getItem("playerTwoImg");
 
 //Run the functions to set up the players on the page, when the page loads.
 
 window.onload = function () {
-    populatePTwo(player2id);
-    populatePOne(player1id);
+    populatePTwo(player2id, player2img);
+    populatePOne(player1id, player1img);
     setPos();
 }
 
@@ -21,11 +23,11 @@ function setPos(){
 
 //Make the HTML content of player two, with name and image for the correct character, and call the function that places the right pawn/token on the board.
 
-function populatePTwo(charName) {
+function populatePTwo(charName, charImg) {
 
     document.querySelector('.playertwo').innerHTML += `
             <h2 class="[ card__title ]">Player 2<br>${charName}</h2>
-            <img src="img/${charName}.png" alt="" class="[ card__image ]">
+            <img src="img/${charImg}.png" alt="" class="[ card__image ]">
             
             <div class="[ activeElemets__2 ]">
                 <div class="[ rollDiceBtn__2 ]">Your turn will come</div>
@@ -36,15 +38,15 @@ function populatePTwo(charName) {
             </div>
     `
     
-    pawnOneOrigin(`${charName}`, 0);
+    pawnOneOrigin(`${charImg}`, 0);
 }
 
 //Make the HTML content of player one, with name and image for the correct character, and call the function that places the right pawn/token on the board.
-function populatePOne(charName) {
+function populatePOne(charName, charImg) {
 
     document.querySelector('.playerOne').innerHTML += `
     <h2 class="[ card__title ]">Player 1<br>${charName}</h2>
-    <img src="img/${charName}.png" alt="" class="[ card__image ]">
+    <img src="img/${charImg}.png" alt="" class="[ card__image ]">
     
     <div class="[ activeElemets__1 ]">
         <div class="[ rollDiceBtn__1 ]" onclick="rollDice1();">Roll the dice</div>
@@ -55,16 +57,16 @@ function populatePOne(charName) {
     </div>
 `
 
-pawnTwoOrigin(`${charName}`, 0);
-
+pawnTwoOrigin(`${charImg}`, 0);
 }
+
 //placing pawn two at the staring position on the board
 function pawnTwoOrigin(name, nPosition) {
     tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__two ]">`
 }
 
 //placing pawn one at the staring position on the board
-function pawnOneOrigin(name, nPosition, oPosition) {
+function pawnOneOrigin(name, nPosition) {
     tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__one ]">`
 }
 
@@ -223,12 +225,12 @@ function pawnOneMove() {
         rollButtonActive1();
         moveButtonPassive2();
         localStorage.setItem('Pos1', newPos1);
-        pawnOne(player1id, newPos1, oldPos1, player2id);
+        pawnOne(player1img, newPos1, oldPos1, player2img);
     }else{
         rollButtonActive2();
         moveButtonPassive1();
         localStorage.setItem('Pos1', newPos1);
-        pawnOne(player1id, newPos1, oldPos1, player2id);
+        pawnOne(player1img, newPos1, oldPos1, player2img);
     }
 
 }
@@ -245,12 +247,12 @@ function pawnTwoMove() {
         rollButtonActive2();
         moveButtonPassive1();
         localStorage.setItem('Pos2', newPos2);
-        pawnTwo(player2id, newPos2, oldPos2, player1id);
+        pawnTwo(player2img, newPos2, oldPos2, player1img);
     }else{
         rollButtonActive1();
         moveButtonPassive2();
         localStorage.setItem('Pos2', newPos2);
-        pawnTwo(player2id, newPos2, oldPos2, player1id);
+        pawnTwo(player2img, newPos2, oldPos2, player1img);
     }
 }
 
