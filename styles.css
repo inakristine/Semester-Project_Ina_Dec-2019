@@ -1,4 +1,4 @@
-/*sass --watch styles.scss styles.css*/
+/*  sass --watch styles.scss styles.css  */
 @import url("https://use.typekit.net/mqw0wrd.css");
 * {
   margin: 0;
@@ -16,7 +16,7 @@ h1 {
   font-family: fairy-tale-jf, sans-serif;
   letter-spacing: 1px;
   color: #33180e;
-  font-size: 2.1vw;
+  font-size: 1.7vw;
 }
 
 a {
@@ -68,6 +68,11 @@ a {
   background-image: url(img/goldGradient.svg);
   border: none;
   height: 30px;
+  font-family: ltc-caslon-pro, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.1em;
+  line-height: 0.9;
 }
 
 .titlebox {
@@ -113,6 +118,11 @@ a {
   background-image: url(img/goldGradient.svg);
   border: none;
   height: 30px;
+  font-family: ltc-caslon-pro, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.1em;
+  line-height: 0.9;
 }
 .card__btn--right {
   width: 45%;
@@ -121,6 +131,11 @@ a {
   background-image: url(img/goldGradient.svg);
   border: none;
   height: 30px;
+  font-family: ltc-caslon-pro, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.1em;
+  line-height: 0.9;
 }
 
 .toGameButton {
@@ -148,6 +163,11 @@ a {
   border: none;
   min-height: 50px;
   padding: 15px;
+  font-family: ltc-caslon-pro, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.1em;
+  line-height: 0.9;
 }
 .rollDiceBtn__2 {
   width: 90%;
@@ -157,6 +177,11 @@ a {
   padding: 15px;
   color: #b09238;
   background-color: #33180e;
+  font-family: ltc-caslon-pro, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.1em;
+  line-height: 0.9;
 }
 
 .dice__1 {
@@ -178,6 +203,10 @@ a {
   padding: 15px;
   color: #b09238;
   background-color: #33180e;
+  font-family: ltc-caslon-pro, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.1em;
 }
 .movePawnBtn__2 {
   width: 90%;
@@ -187,6 +216,10 @@ a {
   padding: 15px;
   color: #b09238;
   background-color: #33180e;
+  font-family: ltc-caslon-pro, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.1em;
 }
 
 .pawn__one {

@@ -20,8 +20,6 @@
     &__image{
         margin-top: 6%;
         margin-bottom: 4%;
-
-        
         width: 120px;
 
     }
@@ -33,6 +31,11 @@
             background-image: url(img/goldGradient.svg);
             border: none;
             height: 30px;
+            font-family: ltc-caslon-pro, serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 1.1em;
+            line-height: 0.9;
 
         }
         &--right{
@@ -42,6 +45,11 @@
             background-image: url(img/goldGradient.svg);
             border: none;
             height: 30px;
+            font-family: ltc-caslon-pro, serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 1.1em;
+            line-height: 0.9;
             
         }
     }

@@ -1,5 +1,5 @@
 
-//getting the right players from locale storage
+//fetching the right characters and image names from locale storage
 
 var player1id = localStorage.getItem("playerOne");
 var player1img = localStorage.getItem("playerOneImg");
@@ -7,7 +7,10 @@ var player1img = localStorage.getItem("playerOneImg");
 var player2id = localStorage.getItem("PlayerTwo");
 var player2img = localStorage.getItem("playerTwoImg");
 
-//Run the functions to set up the players on the page, when the page loads.
+
+
+//Run the functions to set up the characters/players on the page, when the page loads.
+//It also calls the setPos function
 
 window.onload = function () {
     populatePTwo(player2id, player2img);
@@ -15,14 +18,13 @@ window.onload = function () {
     setPos();
 }
 
-//Set the player entrence position in local storage, before gane starts.
+//This sets the player entrence position in local storage, before game starts.
 function setPos(){
     localStorage.setItem('Pos1', 0);
     localStorage.setItem('Pos2', 0);
 }
 
 //Make the HTML content of player two, with name and image for the correct character, and call the function that places the right pawn/token on the board.
-
 function populatePTwo(charName, charImg) {
 
     document.querySelector('.playertwo').innerHTML += `
@@ -60,18 +62,18 @@ function populatePOne(charName, charImg) {
 pawnTwoOrigin(`${charImg}`, 0);
 }
 
-//placing pawn two at the staring position on the board
+//placing pawn image two at the staring position stored in local storage, on the board
 function pawnTwoOrigin(name, nPosition) {
     tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__two ]">`
 }
 
-//placing pawn one at the staring position on the board
+//placing pawn image one at the staring position stored in local storage, on the board
 function pawnOneOrigin(name, nPosition) {
     tiles[`${nPosition}`].innerHTML += `<img src="img/${name}.png" alt="" class="[ pawn__one ]">`
 }
 
 
-//Activating  the "move" button for player one, and setting an onclick to call the function that moves pawn one on the board.
+//Activating the "move" button for player one, and setting an onclick to call the function that moves pawn one on the board.
 function moveButtonActive1() {
     var moveBtn = document.querySelector(".movePawnBtn__1");
     moveBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -81,7 +83,7 @@ function moveButtonActive1() {
     moveBtn.setAttribute('onclick', "pawnOneMove();");
 }
 
-//Activating  the "move" button for player two, and setting an onclick to call the function that moves pawn two on the board.
+//Activating the "move" button for player two, and setting an onclick to call the function that moves pawn two on the board.
 function moveButtonActive2() {
     var moveBtn = document.querySelector(".movePawnBtn__2");
     moveBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -110,7 +112,7 @@ function moveButtonPassive2() {
     moveBtn.removeAttribute("onclick");
 }
 
-//Activates roll button for player one, setting onclick function to the function that rolls the dice one.
+//Activates roll button for player one, setting onclick to the function that rolls the dice one.
 function rollButtonActive1() {
     var rollBtn = document.querySelector(".rollDiceBtn__1");
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -119,7 +121,7 @@ function rollButtonActive1() {
     rollBtn.innerHTML=("Roll the dice");
     rollBtn.setAttribute('onclick', "rollDice1();");
 }
-//Activates roll button for player two, setting onclick function to the function that rolls the dice two.
+//Activates roll button for player two, setting onclick to the function that rolls the dice two.
 function rollButtonActive2() {
     var rollBtn = document.querySelector(".rollDiceBtn__2");
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -146,7 +148,7 @@ function rollButtonPassive2() {
     rollBtn.innerHTML=("Wait for your turn");
     rollBtn.removeAttribute("onclick");
 }
-//Activates the roll-button one with an alternative text.
+//Activates the roll-button one with an alternative text and a onclick function that moves the pawn.
 function rollButtonSix1() {
     var rollBtn = document.querySelector('.rollDiceBtn__1');
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -155,7 +157,7 @@ function rollButtonSix1() {
     rollBtn.innerHTML=("You hit SIX!!<br>Make your move and get a bonus throw!");
     rollBtn.setAttribute('onclick', "pawnOneMove();");
 }
-//Activates the roll-button two with onclick function and an alternative text.
+//Activates the roll-button two with onclick function and an alternative text and a onclick function that moves the pawn.
 function rollButtonSix2() {
     var rollBtn = document.querySelector('.rollDiceBtn__2');
     rollBtn.style.backgroundImage="url(img/goldGradient.svg)";
@@ -213,41 +215,42 @@ function rollDice2() {
 
 }
 
-//This moves the pawnOne by calling the pawnOne function. It also sets the new position in local storage by getting its old position (starting at 0) from local storage and adding the dicenumber to it.
-//Whenever the dice shows six, this fuction  moves the pawn, and reactivates the rollButtonAvtive1 function, to let player one roll again. When player one hits any other number, it passes the turn to player one by activating rollButtonAvtive2.
+//this function gets the old position and the dicenumber from local storage, and adds them to find the new position.
 
 function pawnOneMove() {
-
     var diceNum1=localStorage.getItem('dice1')
     var oldPos1=localStorage.getItem('Pos1');
     var newPos1=(+diceNum1)+(+oldPos1);
+
+//If the dice is 6 rollbutton is reactivated on the same player, and the function that moves the pawn image on the board is called.
+
     if(diceNum1==6){
         rollButtonActive1();
         moveButtonPassive2();
         localStorage.setItem('Pos1', newPos1);
         pawnOne(player1img, newPos1, oldPos1, player2img);
+
+//If dice is not six, the function that moves the pawn image on the board is called, and the turn goes to the next player by acttivating the rollbutton.
     }else{
         rollButtonActive2();
         moveButtonPassive1();
         localStorage.setItem('Pos1', newPos1);
         pawnOne(player1img, newPos1, oldPos1, player2img);
     }
-
 }
 
-//This moves the pawnTwo by calling the pawnTwo function. It also sets the new position in local storage by getting its old position (starting at 0) from local storage and adding the dicenumber to it.
-//Whenever the dice shows six, this fuction  moves the pawn, and reactivates the rollButtonAvtive2 function, to let player two roll again. When player two hits any other number, it passes the turn to player one by activating rollButtonAvtive1.
-
-
+//this function gets the old position and the dicenumber from local storage, and adds them to find the new position.
 function pawnTwoMove() {
     var diceNum2=localStorage.getItem('dice2')
     var oldPos2=localStorage.getItem('Pos2');
     var newPos2=(+diceNum2)+(+oldPos2);
+//If the dice is 6 rollbutton is reactivated on the same player, and the function that moves the pawn image on the board is called.
     if(diceNum2==6){
         rollButtonActive2();
         moveButtonPassive1();
         localStorage.setItem('Pos2', newPos2);
         pawnTwo(player2img, newPos2, oldPos2, player1img);
+//If dice is not six, the function that moves the pawn image on the board is called, and the turn goes to the next player by acttivating the rollbutton.
     }else{
         rollButtonActive1();
         moveButtonPassive2();
@@ -257,7 +260,12 @@ function pawnTwoMove() {
 }
 
 
-//This function moves pawn two by deliting its image from the former tile-position and placing its image in its new tile-position, and making sure the tile-number and pawn one, if present, is replaced when the olt psition-tile content is removed. If the tile-number is 0, the number is replaced with the text "START".
+//This function moves pawn two by deliting its image from the former tile-position and placing its image in its new tile-position, and making sure the tile-number and pawn one, if present, is replaced when the old psition-tile content is removed. If the tile-number is 0, the number is replaced with the text "START".
+
+//This functoun also contains a rather extensive switch function with a case for each trap, where the pawn in question is moved where the trap sends it, and a message explaining the actions is displayed.
+
+//If pawn two wins the game by geting to the goal tile or past it, the winner page function is called. 
+
 function pawnTwo(name, nPosition, oPosition, otherName) {
 
     if(oPosition==0){
@@ -265,86 +273,47 @@ function pawnTwo(name, nPosition, oPosition, otherName) {
         tiles[`${nPosition}`].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
     }else{
         
-        
-            
         switch (nPosition) {
             case 8:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[16].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
                 localStorage.setItem('Pos2', 16);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
-                tiles[16].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
-                localStorage.setItem('Pos2', 16);
-            }
             openBoxLadder(name, 8, 16);
             break;
             case 11:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
+            
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[24].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
                 localStorage.setItem('Pos2', 24);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
-                tiles[24].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
-                localStorage.setItem('Pos2', 24);
-            }
             openBoxLadder(name, 11, 24);
             break;
             case 13:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[4].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
                 localStorage.setItem('Pos2', 4);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
-                tiles[4].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
-                localStorage.setItem('Pos2', 4);
-            }
             openBoxRope(name, 13, 4);
             break;
             case 21:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[22].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
                 localStorage.setItem('Pos2', 22);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
-                tiles[22].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
-                localStorage.setItem('Pos2', 22);
-            }
             openBoxLadder(name, 21, 22);
             
             break;
             case 25:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
+
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[1].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
                 localStorage.setItem('Pos2', 1);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
-                tiles[1].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
-                localStorage.setItem('Pos2', 1);
-            }
             openBoxRope(name, 25, 1);
             
             break;
             case 30:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__two ]">`)){
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[6].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
                 localStorage.setItem('Pos2', 6);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__one ]">`);
-                tiles[6].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__two ]">`);
-                localStorage.setItem('Pos2', 6);
-                
-            }
             openBoxRope(name, 30, 6);
 
-            
-            
             break;
             case 31:
             case 32:
@@ -383,7 +352,11 @@ function pawnTwo(name, nPosition, oPosition, otherName) {
 
 
 
-//This function moves pawn one by deliting its image from the former tile-position and placing its image in its new tile-position, and making sure the tile-number and pawn two, if present, is replaced when the olt psition-tile content is removed. If the tile-number is 0, the number is replaced with the text "START".
+//This function moves pawn one by deliting its image from the former tile-position and placing its image in its new tile-position, and making sure the tile-number and pawn two, if present, is replaced when the old psition-tile content is removed. If the tile-number is 0, the number is replaced with the text "START".
+
+//This functoun also contains a rather extensive switch function with a case for each trap, where the pawn in question is moved where the trap sends it, and a message explaining the actions is displayed.
+
+//If pawn one wins the game by geting to the goal tile or past it, the winner page function is called. 
 function pawnOne(name, nPosition, oPosition, otherName) {
 
  
@@ -394,76 +367,40 @@ function pawnOne(name, nPosition, oPosition, otherName) {
             
         switch (nPosition) {
             case 8:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[16].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
                 localStorage.setItem('Pos1', 16);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
-                tiles[16].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
-                localStorage.setItem('Pos1', 16);
-            }
             openBoxLadder(name, 8, 16);
             break;
             case 11:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[24].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
                 localStorage.setItem('Pos1', 24);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
-                tiles[24].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
-                localStorage.setItem('Pos1', 24);
-            }
             openBoxLadder(name, 11, 24);
             break;
             case 13:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[4].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
                 localStorage.setItem('Pos1', 4);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
-                tiles[4].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
-                localStorage.setItem('Pos1', 4);
-            }
             openBoxRope(name, 13, 4);
             break;
             case 21:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[22].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
                 localStorage.setItem('Pos1', 22);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
-                tiles[22].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
-                localStorage.setItem('Pos1', 22);
-            }
             openBoxLadder(name, 21, 22);
             break;
             
             case 25:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[1].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
                 localStorage.setItem('Pos1', 1);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
-                tiles[1].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
-                localStorage.setItem('Pos1', 1);
-            }
             openBoxRope(name, 25, 1);
             break;
             case 30:
-            if(tiles[`${oPosition}`].innerHTML == (`${oPosition}<img src="img/${name}.png" alt="" class="[ pawn__one ]">`)){
                 tiles[`${oPosition}`].innerHTML = (`${oPosition}`);
                 tiles[6].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
                 localStorage.setItem('Pos1', 6);
-            }else{
-                tiles[`${oPosition}`].innerHTML = (`${oPosition}<img src="img/${otherName}.png" alt="" class="[ pawn__two ]">`);
-                tiles[6].innerHTML += (`<img src="img/${name}.png" alt="" class="[ pawn__one ]">`);
-                localStorage.setItem('Pos1', 6);
-            }
             openBoxRope(name, 30, 6);
             break;
             case 31:
@@ -502,6 +439,8 @@ function pawnOne(name, nPosition, oPosition, otherName) {
     }
 }
 
+
+//This is the function making the message box for the ladder traps.
 function openBoxLadder(name, oPos, nPos) {
 
     document.querySelector('.emptyBox').innerHTML+=`
@@ -510,6 +449,7 @@ function openBoxLadder(name, oPos, nPos) {
   
 }
 
+//This is the function making the message box for the rope traps.
 function openBoxRope(name, oPos, nPos) {
 
     document.querySelector('.emptyBox').innerHTML+=`
@@ -517,11 +457,14 @@ function openBoxRope(name, oPos, nPos) {
     `;
 }
 
+//This is the function being called by the close-button in the trap-messages.
 function closeBox(){
     var allertBox = document.querySelector('.emptyBox');
     allertBox.lastElementChild.setAttribute("hidden", true);
 }
 
+
+//This is the array of tiles:
     var tiles = [
         document.getElementById("brick01"),
         document.getElementById("brick02"),
